@@ -3,21 +3,18 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # funcation based view
-# def home(request):
-#     html_var = 'f strings'
-#     html_ = f"""<!DOCTYPE html>
-#     <html lang=en>
-#     <head>
-#     </head>
-#     <body>
-#     <h1>sup world!</h1>
-#     <p>this is {html_var} coming through</p>
-#     </body>
-#     </html>
-#     """
-#     return HttpResponse(html_)
-#     # return render(request, "home.html", {})
-
 def home(request):
-    num = random.randint(0, 1000000000)
-    return render(request, "base.html", {"html_var": True, "num": num})
+    num = None
+    some_list = [
+        random.randint(0, 1000000000),
+        random.randint(0, 1000000000),
+        random.randint(0, 1000000000)
+    ]
+    condition_bool_item = False
+    if condition_bool_item:
+        num = random.randint(0, 1000000000)
+    context = {
+        "num": num,
+        "some_list": some_list
+    }
+    return render(request, "base.html", context)
