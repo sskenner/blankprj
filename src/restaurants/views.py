@@ -32,7 +32,14 @@ def contact(request):
 
 class ContactView(View):
     def get(self, request, *args, **kwargs):
-        print(kwargs)
+        context = {}
+        return render(request, "contact.html", context)
+
+    def post(self, request, *args, **kwargs):
+        context = {}
+        return render(request, "contact.html", context)
+
+    def put(self, request, *args, **kwargs):
         context = {}
         return render(request, "contact.html", context)
 
