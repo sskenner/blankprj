@@ -1,6 +1,7 @@
 import random
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views import View
 
 # funcation based view
 def home(request):
@@ -28,3 +29,14 @@ def contact(request):
     context = {
     }
     return render(request, "contact.html", context)
+
+class ContactView(View):
+    def get(self, request, *args, **kwargs):
+        print(kwargs)
+        context = {}
+        return render(request, "contact.html", context)
+
+
+
+
+
