@@ -28,9 +28,31 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+SHARED_APPS = (
+    'tenant_schemas',  # mandatory, should always be before any django app
+    'customers', # you must list the app where your tenant model resides in
+
+    'django.contrib.contenttypes',
+
+    # everything below here is optional
+    'django.contrib.auth',
+    'django.contrib.sessions',
+    # 'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.admin',
+)
+
+TENANT_APPS = (
+    'django.contrib.contenttypes',
+    # your tenant-specific apps
+    'restaurants',
+)
+
 # Application definition
 
 INSTALLED_APPS = [
+    'tenant_schemas',
+    'customers',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +63,10 @@ INSTALLED_APPS = [
     'restaurants',
 ]
 
+TENANT_MODEL = "customers.Client" # app.Model
+
 MIDDLEWARE = [
+    'tenant_schemas.middleware.TenantMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -83,7 +108,7 @@ WSGI_APPLICATION = 'muypicky.wsgi.application'
 # }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'tenant_schemas.postgresql_backend',
         'NAME': 'cfe_db',
         'USER': 'sk',
         'PASSWORD': '1234qwer',
@@ -92,6 +117,13 @@ DATABASES = {
     }
 }
 
+DATABASE_ROUTERS = (
+    'tenant_schemas.routers.TenantSyncRouter',
+)
+
+# DEFAULT_FILE_STORAGE = (
+#     'tenant_schemas.storage.TenantFileSystemStorage'
+# )
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
