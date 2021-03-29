@@ -20,7 +20,7 @@ Pillow==5.1.0
 psycopg2==2.7.4
 pyasn1==0.4.3
 pycparser==2.18
-Pygments==2.2.0
+Pygments==2.7.4
 pyOpenSSL==18.0.0
 pytz==2018.4
 requests==2.18.4
